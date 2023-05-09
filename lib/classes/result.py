@@ -1,3 +1,6 @@
+from classes.game import Game
+from classes.player import Player
+
 class Result:
 
     all = []
@@ -6,3 +9,43 @@ class Result:
         self.player = player
         self.game = game
         self.score = score
+        Result.all.append(self)
+
+        game.results(self)
+        game.players(player)
+
+        player.results(self)
+        player.games_played(game)
+
+    @property
+    def player(self):
+        return self._player
+    
+    @player.setter
+    def player(self, player):
+        
+        if isinstance(player, Player):
+            self._player = player
+        else:
+            raise Exception
+        
+    @property
+    def game(self):
+        return self._game
+    
+    @game.setter
+    def game(self, game):
+        
+        if isinstance(game, Game):
+            self._game = game
+
+    @property
+    def score(self):
+        return self._score
+    
+    @score.setter
+    def score(self, score):
+        if 1 <= score <= 5000:
+            self._score = score
+        else:
+            raise Exception
